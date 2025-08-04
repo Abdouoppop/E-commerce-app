@@ -1,58 +1,66 @@
-import 'package:e_commerce_app/views/pages/cart_page.dart';
-import 'package:e_commerce_app/views/pages/favorites_page.dart';
-import 'package:e_commerce_app/views/pages/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late final PersistentTabController _controller;
-  @override
-  void initState() {
-    _controller = PersistentTabController(initialIndex: 0);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      controller: _controller,
-      tabs: [
-        PersistentTabConfig(
-          screen: const HomePage(),
-          item: ItemConfig(icon: const Icon(Icons.home), title: "Home"),
-        ),
-        PersistentTabConfig(
-          screen: const CartPage(),
-          item: ItemConfig(
-            icon: const Icon(CupertinoIcons.cart),
-            title: "My orders",
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(
+                            'https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fwww.gravatar.com%2Favatar%2F2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250',
+                          ),
+                        ),
+                        const SizedBox(width: 16.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hello, Abdou!',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            Text(
+                              'Welcome back!',
+                              style: Theme.of(context).textTheme.labelSmall
+                                  ?.copyWith(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(CupertinoIcons.search),
+                          onPressed: () {},
+                        ),
+
+                        IconButton(
+                          icon: const Icon(CupertinoIcons.bell_solid),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-        PersistentTabConfig(
-          screen: const FavoritesPage(),
-          item: ItemConfig(
-            icon: const Icon(CupertinoIcons.heart),
-            title: "Favorites",
-          ),
-        ),
-        PersistentTabConfig(
-          screen: const ProfilePage(),
-          item: ItemConfig(
-            icon: const Icon(CupertinoIcons.person),
-            title: "Profile",
-          ),
-        ),
-      ],
-      navBarBuilder:
-          (navBarConfig) => Style1BottomNavBar(navBarConfig: navBarConfig),
+      ),
     );
   }
 }
